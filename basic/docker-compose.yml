@@ -8,9 +8,9 @@ services:
     hostname: salt.demo.com
     networks:
       salt-net:
-        ipv4_address: 172.40.0.2
+        ipv4_address: 172.80.0.2
     extra_hosts:
-      - 'minion.demo.com:172.40.0.3'
+      - 'minion.demo.com:172.80.0.3'
   minion:
     build:
       context: ./salt-minion
@@ -18,9 +18,9 @@ services:
     container_name: salt-minion
     networks:
       salt-net:
-        ipv4_address: 172.40.0.3
+        ipv4_address: 172.80.0.3
     extra_hosts:
-      - 'salt.demo.com:172.40.0.2'
+      - 'salt.demo.com:172.80.0.2'
     depends_on:
       - master
 
@@ -30,4 +30,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.40.0.0/24
+        - subnet: 172.80.0.0/24
