@@ -10,5 +10,6 @@ key_checker () {
   echo "All available keys accepted." && salt "*" test.ping && \
     touch /var/log/salt/master && \
     tail -f /var/log/salt/master
-  }
+}
+
 service salt-master start && key_checker
