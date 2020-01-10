@@ -9,7 +9,7 @@ salt_minion_check () {
   fi
 }
 
-echo "master: salt-master" >> /etc/salt/minion && \
-  echo "id: salt-minion-$(hostname)" >> /etc/salt/minion
+echo "master: salt.demo.com" >> /etc/salt/minion && \
+  echo "id: salt-$(hostname)" >> /etc/salt/minion
   service salt-minion start && \
     salt_minion_check

@@ -4,7 +4,7 @@ services:
     build:
       context: ./salt-master
       dockerfile: Dockerfile
-    container_name: salt-master
+    container_name: basic-salt-master
     hostname: salt.demo.com
     networks:
       salt-net:
@@ -16,7 +16,7 @@ services:
     build:
       context: ./salt-minion
       dockerfile: Dockerfile
-    container_name: salt-minion
+    container_name: basic-salt-minion
     hostname: minion.demo.com
     networks:
       salt-net:
