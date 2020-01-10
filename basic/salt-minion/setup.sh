@@ -10,6 +10,6 @@ salt_minion_check () {
 }
 
 echo "master: salt.demo.com" >> /etc/salt/minion && \
-  echo "id: salt-$(hostname)" >> /etc/salt/minion
+  echo "id: $(hostname)" >> /etc/salt/minion
   service salt-minion start && \
     salt_minion_check

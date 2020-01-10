@@ -24,6 +24,6 @@ RUN mkdir -p /srv/pillar && \
 
 COPY hello /srv/salt/hello
 COPY top.sls /srv/salt/top.sls
-COPY top.sls /srv/pillar/top.sls
+COPY pillartop.sls /srv/pillar/top.sls
 COPY setup.sh /opt/setup.sh
 ENTRYPOINT ["sh","/opt/setup.sh"]
