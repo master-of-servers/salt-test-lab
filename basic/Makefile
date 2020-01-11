@@ -3,7 +3,7 @@ run:
 	sleep 40
 	# Fix pillar issue
 	docker exec -it basic-salt-master salt '*' saltutil.refresh_pillar
-	# Apply the hello state to the minion
+	# Enroll minion with salt master
 	docker exec -it basic-salt-master salt '*' state.apply
 	docker exec -it basic-salt-master salt '*' pillar.items
 
