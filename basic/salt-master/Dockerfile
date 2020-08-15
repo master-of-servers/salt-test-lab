@@ -11,8 +11,8 @@ RUN apt-get update && \
       sudo sh install_salt.sh -P -M
 
 # Generate secret
-COPY genkey-batch /srv/pillar/genkey-batch
-COPY data.sls /srv/pillar/data.sls
+COPY files/genkey-batch /srv/pillar/genkey-batch
+COPY files/data.sls /srv/pillar/data.sls
 
 RUN mkdir -p /srv/pillar && \
       mkdir -p /etc/salt/gpgkeys && \
@@ -22,8 +22,9 @@ RUN mkdir -p /srv/pillar && \
       gpg --import /etc/salt/gpgkeys/exported_pubkey.gpg && \
       echo -n "supersecret" | gpg --armor --batch --trust-model always --encrypt -r "Salt Key" | sed -E 's/^/  /' >> /srv/pillar/data.sls
 
-COPY hello /srv/salt/hello
-COPY top.sls /srv/salt/top.sls
-COPY pillartop.sls /srv/pillar/top.sls
-COPY setup.sh /opt/setup.sh
+COPY files/hello /srv/salt/hello
+COPY files/top.sls /srv/salt/top.sls
+COPY files/pillartop.sls /srv/pillar/top.sls
+COPY files/setup.sh /opt/setup.sh
+
 ENTRYPOINT ["sh","/opt/setup.sh"]

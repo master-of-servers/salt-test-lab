@@ -7,5 +7,5 @@ RUN apt-get update && \
       curl -L https://bootstrap.saltstack.com -o install_salt.sh && \
       sudo sh install_salt.sh -P
 
-COPY setup.sh /opt/setup.sh
+COPY files/setup.sh /opt/setup.sh
 ENTRYPOINT ["sh","/opt/setup.sh"]
