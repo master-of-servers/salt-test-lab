@@ -21,6 +21,20 @@ To tear down the lab, run the following command:
 make destroy
 ```
 
+## Extended Lab Build Instructions
+To create an environment with a salt master that controls multiple minions with multiple environments and includes a database, web server, and development system, run the following command:
+```
+cd extended && make run
+```
+
+**Please note:**
+The docker labs do not support transferring payloads to the target via the web server. You can however generate a payload with the `-f` parameter and transfer it via `docker cp`.
+
+To tear down the lab, run the following command:
+```
+make destroy
+```
+
 ## Credits
 This article was a critical component in standing up this lab:
 https://medium.com/@jmarhee/creating-a-saltstack-test-environment-with-docker-compose-7dfa79837712

@@ -1,0 +1,69 @@
+version: '3'
+services:
+  salt-master:
+    build:
+      context: salt-master
+      dockerfile: Dockerfile
+    container_name: extended-salt-master
+    hostname: salt.mose.com
+    networks:
+      extended-salt-net:
+        ipv4_address: 172.138.0.2
+    extra_hosts:
+      - 'devsystem.mose.com:172.138.0.4'
+      - 'webserver.mose.com:172.138.0.6'
+
+  mariadb:
+    image: bitnami/mariadb:latest
+    container_name: extended-salt-mariadb
+    hostname: mariadb.mose.com
+    environment:
+      - MARIADB_ROOT_PASSWORD=TheM0stS3cr3T!!!
+    networks:
+      extended-salt-net:
+        ipv4_address: 172.138.0.5
+
+  webserver:
+    build:
+      context: ./webserver
+      dockerfile: Dockerfile
+    container_name: extended-salt-webserver
+    hostname: webserver.mose.com
+    ports:
+      - "2026:22"
+      - "8080:80"
+    depends_on:
+      - salt-master
+    networks:
+      extended-salt-net:
+        ipv4_address: 172.138.0.6
+    extra_hosts:
+      - 'salt.mose.com:172.138.0.2'
+      - 'devsystem.mose.com:172.138.0.4'
+      - 'mariadb.mose.com:172.138.0.5'
+
+  devsystem:
+    build:
+      context: ./devsystem
+      dockerfile: Dockerfile
+    container_name: extended-salt-devsystem
+    hostname: devsystem.mose.com
+    ports:
+      - "2024:22"
+    depends_on:
+      - salt-master 
+    networks:
+      extended-salt-net:
+        ipv4_address: 172.138.0.4
+    extra_hosts:
+      - 'salt.mose.com:172.138.0.2'
+      - 'mariadb.mose.com:172.138.0.5'
+      - 'webserver.mose.com:172.138.0.6'
+
+networks:
+  extended-salt-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.138.0.0/24
