@@ -1,0 +1,52 @@
+trigger:
+  branches:
+    include:
+    - master
+
+schedules:
+- cron: "0 0 * * 0"
+  displayName: Weekly midnight (UTC) build
+  branches:
+    include:
+    - master
+  always: true
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: | 
+    git clone https://github.com/master-of-servers/salt-test-lab.git
+    cd salt-test-lab && cd basic
+    docker-compose up -d --build
+    sleep 60
+    # Fix pillar issue
+    docker exec -it basic-salt-master /bin/bash -c "salt '*' saltutil.refresh_pillar"
+    # Enroll minion with salt master
+    docker exec -i basic-salt-master /bin/bash -c "salt '*' state.apply"
+    docker exec -i basic-salt-master /bin/bash  -c "salt '*' pillar.items"
+    docker ps
+  displayName: 'Build and configure the basic salt test environment'
+
+- script: | 
+    docker-compose down -v
+  displayName: 'Tear down the basic salt test environment'
+  workingDirectory: salt-test-lab/basic
+
+- script: | 
+    cd salt-test-lab && cd extended
+    docker-compose up -d --build
+    sleep 60
+    # Fix pillar issue
+    docker exec -it basic-salt-master /bin/bash -c "salt '*' saltutil.refresh_pillar"
+    # Enroll one of the minions with salt master
+    docker exec -i extended-salt-master /bin/bash -c "salt '*' state.apply"
+    docker exec -i extended-salt-master /bin/bash  -c "salt '*' pillar.items"
+    docker exec -i extended-salt-devsystem /bin/bash -c "salt agent -t --waitforcert=120"
+    docker ps
+  displayName: 'Build and configure the extended salt test environment'
+
+- script: | 
+    docker-compose down -v
+  displayName: 'Tear down the extended salt test environment'
+  workingDirectory: salt-test-lab/extended
