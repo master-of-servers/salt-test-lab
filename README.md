@@ -1,5 +1,6 @@
 # salt-test-lab
 [![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/master-of-servers/salt-test-lab/blob/master/LICENSE)
+[![Build Status](https://dev.azure.com/jaysonegrace/salt-test-lab/_apis/build/status/master-of-servers.salt-test-lab?branchName=master)](https://dev.azure.com/jaysonegrace/salt-test-lab/_build/latest?definitionId=35&branchName=master)
 
 Used to create a test lab that can be used to work with MOSE and Salt.
 
