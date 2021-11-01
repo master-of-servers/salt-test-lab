@@ -1,0 +1,74 @@
+---
+name: Release builder for salt-test-lab
+on:
+  push:
+    tags:
+      - '*'
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      git_user:
+        description: Username to associate with running this action
+        required: true
+        default: Jayson Grace
+      git_email:
+        description: Email to associate with running this action
+        required: true
+        default: jayson.e.grace@gmail.com
+
+jobs:
+  build_release:
+    name: Create salt-test-lab binaries
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up git repository
+        uses: actions/checkout@v2
+
+      - name: Install golang
+        uses: actions/setup-go@v2
+        with:
+          go-version: '^1.17.2' 
+      
+      - name: Install mage
+        run: go install github.com/magefile/mage@latest
+
+      - name: Build artifacts
+        run: mage createArtifacts
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v5.6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Create Release
+      #   uses: softprops/action-gh-release@v1
+      #   # if: startsWith(github.ref, 'refs/tags/')
+      #   with:
+      #     name: ${{ steps.tag_version.outputs.new_tag }}
+      #     body: ${{ github.event.head_commit.message }}
+      #     tag_name: ${{ steps.tag_version.outputs.new_tag }}
+      #     files: |
+      #       dist/salt-test-lab-linux-amd64
+      #       dist/salt-test-lab-darwin-amd64
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Check head commit message
+      #   id: commit
+      #   run: |
+      #     str="$(jq '.head_commit.message' $GITHUB_EVENT_PATH)"
+      #     echo ::set-output name=body::${str##*\\n} | tr -d '"'
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/salt-test-lab-linux-amd64,dist/salt-test-lab-darwin-amd64"
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # body: ${{ steps.commit.outputs.body}}
+
+      # - name: Setup tmate session
+      #   if: ${{ failure() }}
+      #   uses: mxschmitt/action-tmate@v3

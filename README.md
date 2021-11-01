@@ -11,21 +11,27 @@ You must download and install the following for this environment to work:
 * [Docker](https://docs.docker.com/install/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
 
+### Optional
+* [Mage](https://github.com/magefile/mage):  
+  ```
+  go install github.com/magefile/mage
+  ```
+
 ## Basic Lab Build Instructions
 To create an environment with a salt master that controls a single minion with a simple hello world module, run the following command:
 ```
-cd basic && make run
+salt-test-lab buildBasic
 ```
 
 To tear down the lab, run the following command:
 ```
-make destroy
+salt-test-lab destroyBasic
 ```
 
 ## Extended Lab Build Instructions
 To create an environment with a salt master that controls multiple minions with multiple environments and includes a database, web server, and development system, run the following command:
 ```
-cd extended && make run
+salt-test-lab buildExtended
 ```
 
 **Please note:**
@@ -33,7 +39,7 @@ The docker labs do not support transferring payloads to the target via the web s
 
 To tear down the lab, run the following command:
 ```
-make destroy
+salt-test-lab destroyExtended
 ```
 
 ## Credits

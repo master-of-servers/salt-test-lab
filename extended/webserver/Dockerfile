@@ -33,7 +33,7 @@ RUN cd /var/www/html/ && \
      --html-extension    \
      --wait=2            \
      -o log              \
-      https://bsidesboulder.org/home; exit 0
+      https://bsidesboulder.org; exit 0
 
 RUN cd /var/www/html/ && \
       rm index.nginx-debian.html && \
