@@ -108,3 +108,22 @@ func DestroyExtended() error {
 	destroy("extended", "salt")
 	return nil
 }
+
+// Install and run pre-commit scripts locally
+func PreCommit() error {
+	fmt.Printf("Installing pre-commit git hook scripts\n")
+	err := sh.Run("pre-commit", "install")
+	if err != nil {
+		fmt.Printf("Failed to install pre-commit git hook scripts: %v\n", err)
+		return err
+	}
+
+	fmt.Printf("Running pre-commit git hook scripts locally\n")
+	err = sh.Run("pre-commit", "run", "--all-files")
+	if err != nil {
+		fmt.Printf("Failed to run pre-commit git hook scripts locally: %v\n", err)
+		return err
+	}
+
+	return nil
+}

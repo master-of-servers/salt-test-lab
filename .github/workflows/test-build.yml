@@ -1,13 +1,12 @@
 ---
 name: Test salt-test-lab
 on:
-  push:
-    branches: [ master ]
-  
-  # Run once a month (see https://crontab.guru)
-  schedule:
-    - cron: '0 0 1 * *'
-  
+  workflow_run:
+    workflows:
+      - "Run Pre-Commit hooks"
+    types:
+      - completed
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
@@ -31,12 +30,12 @@ jobs:
       steps:
         - name: Set up git repository
           uses: actions/checkout@v2
-        
+
         - name: Install golang
           uses: actions/setup-go@v2
           with:
-            go-version: '^1.17.2' 
-        
+            go-version: '^1.17.2'
+
         - name: Install mage
           run: go install github.com/magefile/mage@latest
 
@@ -45,13 +44,13 @@ jobs:
 
         - name: Tear down basic test lab
           run: mage destroyBasic
-        
+
         - name: Build extended test lab
           run: mage buildExtended
 
         - name: Tear down extended test lab
           run: mage destroyExtended
 
-        - name: Setup tmate session
+        - name: Setup tmate session if any part of the action fails
           if: ${{ failure() }}
           uses: mxschmitt/action-tmate@v3

@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 key_checker () {
   x=1
   while [ $x -le 250 ]
