@@ -1,4 +1,4 @@
-module github.com/l50/salt-test-lab
+module github.com/master-of-puppets/salt-test-lab
 
 go 1.16
 

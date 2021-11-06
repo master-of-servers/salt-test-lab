@@ -30,7 +30,7 @@ func build(labEnv string, cm string) error {
 
 func config(labEnv string, cm string) error {
 	// Fix pillar issue
-	output, err := sh.Output("docker", "exec", "-it", labEnv+"-"+cm+"-master", cm, "*", "saltutil.refresh_pillar")
+	output, err := sh.Output("docker", "exec", "-i", labEnv+"-"+cm+"-master", cm, "*", "saltutil.refresh_pillar")
 	if err != nil {
 		fmt.Printf("Failed to fix the pillar issue: %v\n", err)
 		return err
@@ -38,7 +38,7 @@ func config(labEnv string, cm string) error {
 	fmt.Printf("%s\n", output)
 
 	// Enroll minion with salt master
-	output, err = sh.Output("docker", "exec", "-it", labEnv+"-"+cm+"-master", cm, "*", "state.apply")
+	output, err = sh.Output("docker", "exec", "-i", labEnv+"-"+cm+"-master", cm, "*", "state.apply")
 	if err != nil {
 		fmt.Printf("Failed to enroll the minion with the salt master: %v\n", err)
 		return err
@@ -46,7 +46,7 @@ func config(labEnv string, cm string) error {
 	fmt.Printf("%s\n", output)
 
 	// List pillar items that were created
-	output, err = sh.Output("docker", "exec", "-it", labEnv+"-"+cm+"-master", cm, "*", "pillar.items")
+	output, err = sh.Output("docker", "exec", "-i", labEnv+"-"+cm+"-master", cm, "*", "pillar.items")
 	if err != nil {
 		fmt.Printf("Failed to list created pillar items: %v\n", err)
 		return err

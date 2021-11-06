@@ -42,6 +42,15 @@ To tear down the lab, run the following command:
 salt-test-lab destroyExtended
 ```
 
+## Development
+Run the following command to set up `go.mod` for development with your fork:
+```
+REPO=github.com/master-of-puppets/salt-test-lab
+FORK="${PWD}"
+
+echo -e "\nreplace ${REPO} => ${FORK}" >> go.mod
+```
+
 ## Credits
 This article was a critical component in standing up this lab:
 https://medium.com/@jmarhee/creating-a-saltstack-test-environment-with-docker-compose-7dfa79837712
