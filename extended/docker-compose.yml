@@ -51,7 +51,7 @@ services:
     ports:
       - "2024:22"
     depends_on:
-      - salt-master 
+      - salt-master
     networks:
       extended-salt-net:
         ipv4_address: 172.138.0.4
