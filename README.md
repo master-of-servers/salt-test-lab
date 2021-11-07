@@ -1,5 +1,8 @@
 # salt-test-lab
 [![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/master-of-servers/salt-test-lab/blob/master/LICENSE)
+[![Run Pre-Commit hooks](https://github.com/master-of-servers/salt-test-lab/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/master-of-servers/salt-test-lab/actions/workflows/pre-commit.yml)
+[![Test salt-test-lab](https://github.com/master-of-servers/salt-test-lab/actions/workflows/test-build.yml/badge.svg)](https://github.com/master-of-servers/salt-test-lab/actions/workflows/test-build.yml)
+[![Release builder for salt-test-lab](https://github.com/master-of-servers/salt-test-lab/actions/workflows/release.yml/badge.svg)](https://github.com/master-of-servers/salt-test-lab/actions/workflows/release.yml)
 
 Used to create a test lab that can be used to work with MOSE and Salt.
 
