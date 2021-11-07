@@ -12,7 +12,7 @@ Used to create a test lab that can be used to work with MOSE and Salt.
 You must download and install the following for this environment to work:
 * [Docker](https://docs.docker.com/install/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
-* [Latest release of the salt-test-lab binary](https://github.com/l50/salt-test-lab/releases)
+* [Latest release of the salt-test-lab binary](https://github.com/master-of-servers/salt-test-lab/releases)
 
 ## Basic Lab Build Instructions
 To create an environment with a salt master that controls a single minion with a simple hello world module, run the following command:
