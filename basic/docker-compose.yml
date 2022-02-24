@@ -1,4 +1,5 @@
-version: '3'
+---
+version: "3"
 services:
   master:
     build:
@@ -10,7 +11,7 @@ services:
       salt-net:
         ipv4_address: 172.80.0.2
     extra_hosts:
-      - 'minion.demo.com:172.80.0.3'
+      - "minion.demo.com:172.80.0.3"
 
   minion:
     build:
@@ -22,7 +23,7 @@ services:
       salt-net:
         ipv4_address: 172.80.0.3
     extra_hosts:
-      - 'salt.demo.com:172.80.0.2'
+      - "salt.demo.com:172.80.0.2"
     depends_on:
       - master
 
