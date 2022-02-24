@@ -1,4 +1,5 @@
-version: '3'
+---
+version: "3"
 services:
   salt-master:
     build:
@@ -10,8 +11,8 @@ services:
       extended-salt-net:
         ipv4_address: 172.138.0.2
     extra_hosts:
-      - 'devsystem.mose.com:172.138.0.4'
-      - 'webserver.mose.com:172.138.0.6'
+      - "devsystem.mose.com:172.138.0.4"
+      - "webserver.mose.com:172.138.0.6"
 
   mariadb:
     image: bitnami/mariadb:latest
@@ -38,9 +39,9 @@ services:
       extended-salt-net:
         ipv4_address: 172.138.0.6
     extra_hosts:
-      - 'salt.mose.com:172.138.0.2'
-      - 'devsystem.mose.com:172.138.0.4'
-      - 'mariadb.mose.com:172.138.0.5'
+      - "salt.mose.com:172.138.0.2"
+      - "devsystem.mose.com:172.138.0.4"
+      - "mariadb.mose.com:172.138.0.5"
 
   devsystem:
     build:
@@ -56,9 +57,9 @@ services:
       extended-salt-net:
         ipv4_address: 172.138.0.4
     extra_hosts:
-      - 'salt.mose.com:172.138.0.2'
-      - 'mariadb.mose.com:172.138.0.5'
-      - 'webserver.mose.com:172.138.0.6'
+      - "salt.mose.com:172.138.0.2"
+      - "mariadb.mose.com:172.138.0.5"
+      - "webserver.mose.com:172.138.0.6"
 
 networks:
   extended-salt-net:
